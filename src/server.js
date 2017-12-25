@@ -7,6 +7,18 @@ const {
 
 const nodePort = NODE_PORT || 4000
 
+app.get('/:a.:b', (req, res) => {
+  res.send(`get ${req.params.a} . ${req.params.b}`)
+})
+
+app.get('/:a-:b', (req, res) => {
+  res.send(`get ${req.params.a} - ${req.params.b}`)
+})
+
+app.get('/:id', (req, res) => {
+  res.send(`id = ${req.params.id}`)
+})
+
 app.get('/', (req, res) => {
   res.send('Hello World')
 })
