@@ -1,4 +1,5 @@
 import express from 'express'
+import router from './app/routes'
 
 const app = express()
 const {
@@ -7,29 +8,7 @@ const {
 
 const nodePort = NODE_PORT || 4000
 
-app.route('/example')
-  .get((req, res) => {
-    res.send('get example')
-  })
-  .post((req, res) => {
-    res.send('post to example')
-  })
-
-app.get('/:a.:b', (req, res) => {
-  res.send(`get ${req.params.a} . ${req.params.b}`)
-})
-
-app.get('/:a-:b', (req, res) => {
-  res.send(`get ${req.params.a} - ${req.params.b}`)
-})
-
-app.get('/:id', (req, res) => {
-  res.send(`id = ${req.params.id}`)
-})
-
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
+app.use('/api', router)
 
 app.listen(nodePort, () => {
   console.log(`App listening on port ${nodePort}`)
