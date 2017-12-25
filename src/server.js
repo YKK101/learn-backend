@@ -7,6 +7,14 @@ const {
 
 const nodePort = NODE_PORT || 4000
 
+app.route('/example')
+  .get((req, res) => {
+    res.send('get example')
+  })
+  .post((req, res) => {
+    res.send('post to example')
+  })
+
 app.get('/:a.:b', (req, res) => {
   res.send(`get ${req.params.a} . ${req.params.b}`)
 })
