@@ -8,6 +8,7 @@ import {
   removeProductById,
 } from './controllers/products'
 import { newProduct } from './validation/product'
+import { validationError } from './middlewares/error'
 
 const router = express.Router()
 
@@ -23,16 +24,6 @@ router.route('/products/:id')
   .put(updateProductById)
   .delete(removeProductById)
 
-router.use((err, req, res, next) => {
-  if (err) {
-    res.status(400).json({
-      code: 400,
-      message: 'Bad Request',
-      description: 'Validation error',
-      error: err.errors,
-    })
-  }
-  next()
-})
+router.use(validationError)
 
 export default router
