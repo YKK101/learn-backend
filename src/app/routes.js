@@ -1,5 +1,4 @@
 import express from 'express'
-import validate from 'express-validation'
 import {
   getAllProducts,
   getProductById,
@@ -7,7 +6,10 @@ import {
   updateProductById,
   removeProductById,
 } from './controllers/products'
-import { newProduct } from './validation/product'
+import {
+  validateNewProduct,
+  validateUpdateProduct,
+} from './validation/product'
 import { validationError } from './middlewares/error'
 
 const router = express.Router()
@@ -15,15 +17,18 @@ const router = express.Router()
 router.route('/products')
   .get(getAllProducts)
   .post(
-    validate(newProduct),
+    validateNewProduct,
+    validationError,
     addProduct,
   )
 
 router.route('/products/:id')
   .get(getProductById)
-  .put(updateProductById)
+  .put(
+    validateUpdateProduct,
+    validationError,
+    updateProductById,
+  )
   .delete(removeProductById)
-
-router.use(validationError)
 
 export default router
